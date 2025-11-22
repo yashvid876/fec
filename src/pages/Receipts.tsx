@@ -43,9 +43,9 @@ const Receipts = () => {
             console.error('Error fetching orders:', error);
             // Mock data
             setOrders([
-                { id: 1, type: 'IN', vendor_name: 'Tech Supplies Co.', status: 'Draft', total_items: 5 },
-                { id: 2, type: 'IN', vendor_name: 'Global Electronics', status: 'Validated', total_items: 12 },
-                { id: 3, type: 'IN', vendor_name: 'Office Plus', status: 'Draft', total_items: 8 },
+                { id: 1, type: 'IN', vendor_name: 'Tech Supplies India Pvt Ltd', status: 'Draft', total_items: 5 },
+                { id: 2, type: 'IN', vendor_name: 'Mumbai Electronics', status: 'Validated', total_items: 12 },
+                { id: 3, type: 'IN', vendor_name: 'Delhi Office Solutions', status: 'Draft', total_items: 8 },
             ]);
         } finally {
             setLoading(false);
@@ -71,7 +71,7 @@ const Receipts = () => {
 
         // Show warehouse recommendation when product is selected
         if (productId) {
-            const warehouses = ['Zone A (Empty Space)', 'Zone B (High Traffic)', 'Zone C (Climate Controlled)'];
+            const warehouses = ['Zone A (Mumbai)', 'Zone B (Delhi)', 'Zone C (Bangalore)'];
             const recommended = warehouses[Math.floor(Math.random() * warehouses.length)];
             setRecommendedWarehouse(recommended);
         } else {
@@ -173,8 +173,8 @@ const Receipts = () => {
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span
                                                 className={`px-2 py-1 text-xs font-medium rounded ${order.status === 'Draft'
-                                                        ? 'bg-yellow-100 text-yellow-800'
-                                                        : 'bg-green-100 text-green-800'
+                                                    ? 'bg-yellow-100 text-yellow-800'
+                                                    : 'bg-green-100 text-green-800'
                                                     }`}
                                             >
                                                 {order.status}
@@ -204,8 +204,8 @@ const Receipts = () => {
 
             {/* Create Receipt Modal */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]" onClick={() => setShowModal(false)}>
+                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center justify-between p-6 border-b border-gray-200">
                             <h2 className="text-xl font-bold text-gray-900">New Inbound Receipt</h2>
                             <button
@@ -227,7 +227,7 @@ const Receipts = () => {
                                     value={formData.vendor_name}
                                     onChange={(e) => setFormData({ ...formData, vendor_name: e.target.value })}
                                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-                                    placeholder="e.g., Tech Supplies Co."
+                                    placeholder="e.g., Tech Supplies India"
                                 />
                             </div>
 

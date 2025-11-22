@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { TrendingUp, AlertTriangle, Package, Truck } from 'lucide-react';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import api from '../lib/api';
+import MapComponent from '../components/MapComponent';
 
 interface DashboardData {
     total_items: number;
@@ -68,7 +69,7 @@ const Dashboard = () => {
                         <div>
                             <p className="text-sm font-medium text-gray-600">Total Stock Value</p>
                             <p className="text-2xl font-bold text-gray-900 mt-2">
-                                ${loading ? '...' : dashboardData?.inventory_value.toLocaleString()}
+                                ${loading ? '...' : '₹' + dashboardData?.inventory_value.toLocaleString('en-IN')}
                             </p>
                             <p className="text-xs text-green-600 mt-2 flex items-center gap-1">
                                 <TrendingUp size={14} />
@@ -140,27 +141,19 @@ const Dashboard = () => {
                         </button>
                     </div>
 
-                    {/* Map Placeholder */}
-                    <div className="relative h-96 bg-gradient-to-br from-blue-50 to-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            {/* Warehouse dots */}
-                            <div className="absolute top-20 left-20 w-4 h-4 bg-green-500 rounded-full shadow-lg animate-pulse"></div>
-                            <div className="absolute top-32 right-32 w-4 h-4 bg-green-500 rounded-full shadow-lg"></div>
-                            <div className="absolute bottom-24 left-40 w-4 h-4 bg-red-500 rounded-full shadow-lg animate-pulse"></div>
-                            <div className="absolute bottom-20 right-20 w-4 h-4 bg-green-500 rounded-full shadow-lg"></div>
-                            <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-yellow-500 rounded-full shadow-lg"></div>
-
-                            {/* Connection lines */}
-                            <svg className="absolute inset-0 w-full h-full">
-                                <line x1="20%" y1="20%" x2="50%" y2="50%" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5,5" />
-                                <line x1="50%" y1="50%" x2="80%" y2="80%" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5,5" />
-                            </svg>
-                        </div>
-
-                        <div className="relative z-10 text-center">
-                            <p className="text-gray-500 font-medium">Interactive Supply Chain Visualization</p>
-                            <p className="text-sm text-gray-400 mt-1">5 Active Warehouses</p>
-                        </div>
+                    <div className="h-96 rounded-lg border border-gray-300 overflow-hidden relative z-0">
+                        <MapComponent
+                            latitude={20.5937}
+                            longitude={78.9629}
+                            height="100%"
+                            markers={[
+                                { id: 1, name: 'Mumbai Central Hub', latitude: 19.0760, longitude: 72.8777 },
+                                { id: 2, name: 'Delhi Distribution Center', latitude: 28.7041, longitude: 77.1025 },
+                                { id: 3, name: 'Bangalore Tech Park', latitude: 12.9716, longitude: 77.5946 },
+                                { id: 4, name: 'Chennai Port Hub', latitude: 13.0827, longitude: 80.2707 },
+                                { id: 5, name: 'Kolkata Logistics', latitude: 22.5726, longitude: 88.3639 }
+                            ]}
+                        />
                     </div>
 
                     <div className="mt-4 flex gap-4 text-sm">

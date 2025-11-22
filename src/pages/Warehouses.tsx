@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MapPin, Plus } from 'lucide-react';
+import MapComponent from '../components/MapComponent';
 
 interface Warehouse {
     id: number;
@@ -11,9 +12,9 @@ interface Warehouse {
 
 const Warehouses = () => {
     const [warehouses, setWarehouses] = useState<Warehouse[]>([
-        { id: 1, name: 'Main Warehouse', location: 'Downtown', latitude: 40.7128, longitude: -74.0060 },
-        { id: 2, name: 'North Distribution Center', location: 'Uptown', latitude: 40.7589, longitude: -73.9851 },
-        { id: 3, name: 'South Storage Facility', location: 'Brooklyn', latitude: 40.6782, longitude: -73.9442 },
+        { id: 1, name: 'Mumbai Central Hub', location: 'Bhiwandi', latitude: 19.0760, longitude: 72.8777 },
+        { id: 2, name: 'Delhi Distribution Center', location: 'Okhla', latitude: 28.7041, longitude: 77.1025 },
+        { id: 3, name: 'Bangalore Tech Park', location: 'Electronic City', latitude: 12.9716, longitude: 77.5946 },
     ]);
 
     const [formData, setFormData] = useState({
@@ -77,7 +78,7 @@ const Warehouses = () => {
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="e.g., West Distribution Center"
+                                placeholder="e.g., Chennai Port Hub"
                             />
                         </div>
 
@@ -91,7 +92,7 @@ const Warehouses = () => {
                                 value={formData.location}
                                 onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                placeholder="e.g., Manhattan"
+                                placeholder="e.g., T. Nagar"
                             />
                         </div>
 
@@ -101,24 +102,19 @@ const Warehouses = () => {
                                 <MapPin size={16} className="inline mr-1" />
                                 Map Picker (Click to set coordinates)
                             </label>
-                            <div
-                                onClick={handleMapClick}
-                                className="relative h-48 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg border-2 border-dashed border-gray-300 cursor-crosshair hover:border-blue-500 transition-colors"
-                            >
-                                <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-sm pointer-events-none">
-                                    Click anywhere to set location
-                                </div>
-
-                                {formData.latitude && formData.longitude && (
-                                    <div
-                                        className="absolute w-4 h-4 bg-red-500 rounded-full border-2 border-white shadow-lg transform -translate-x-1/2 -translate-y-1/2"
-                                        style={{
-                                            left: `${((parseFloat(formData.longitude) + 90) / 180) * 100}%`,
-                                            top: `${((90 - parseFloat(formData.latitude)) / 180) * 100}%`,
-                                        }}
-                                    />
-                                )}
-                            </div>
+                            <MapComponent
+                                latitude={parseFloat(formData.latitude) || 20.5937}
+                                longitude={parseFloat(formData.longitude) || 78.9629}
+                                onLocationChange={(lat, lng) => {
+                                    setFormData({
+                                        ...formData,
+                                        latitude: lat.toFixed(4),
+                                        longitude: lng.toFixed(4),
+                                    });
+                                }}
+                                clickable={true}
+                                height="192px"
+                            />
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
@@ -165,6 +161,17 @@ const Warehouses = () => {
                 {/* Warehouse List */}
                 <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6">
                     <h2 className="text-xl font-bold text-gray-900 mb-4">Existing Warehouses</h2>
+
+                    {/* Map showing all warehouses */}
+                    <div className="mb-6">
+                        <MapComponent
+                            latitude={warehouses[0]?.latitude || 20.5937}
+                            longitude={warehouses[0]?.longitude || 78.9629}
+                            clickable={false}
+                            height="200px"
+                        />
+                        <p className="text-xs text-gray-500 mt-1 text-center">Showing warehouse locations</p>
+                    </div>
 
                     <div className="space-y-3">
                         {warehouses.map((warehouse) => (

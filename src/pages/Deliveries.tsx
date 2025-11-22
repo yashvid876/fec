@@ -45,9 +45,9 @@ const Deliveries = () => {
             console.error('Error fetching orders:', error);
             // Mock data
             setOrders([
-                { id: 4, type: 'OUT', customer_name: 'Acme Corp', status: 'Draft', total_items: 3 },
-                { id: 5, type: 'OUT', customer_name: 'Beta Industries', status: 'Validated', total_items: 7 },
-                { id: 6, type: 'OUT', customer_name: 'Gamma LLC', status: 'Draft', total_items: 2 },
+                { id: 4, type: 'OUT', customer_name: 'Reliance Retail', status: 'Draft', total_items: 3 },
+                { id: 5, type: 'OUT', customer_name: 'Tata Consumer Products', status: 'Validated', total_items: 7 },
+                { id: 6, type: 'OUT', customer_name: 'Flipkart Wholesale', status: 'Draft', total_items: 2 },
             ]);
         } finally {
             setLoading(false);
@@ -181,8 +181,8 @@ const Deliveries = () => {
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span
                                                 className={`px-2 py-1 text-xs font-medium rounded ${order.status === 'Draft'
-                                                        ? 'bg-yellow-100 text-yellow-800'
-                                                        : 'bg-green-100 text-green-800'
+                                                    ? 'bg-yellow-100 text-yellow-800'
+                                                    : 'bg-green-100 text-green-800'
                                                     }`}
                                             >
                                                 {order.status}
@@ -208,8 +208,8 @@ const Deliveries = () => {
 
             {/* Create Delivery Modal */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]" onClick={() => setShowModal(false)}>
+                    <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center justify-between p-6 border-b border-gray-200">
                             <h2 className="text-xl font-bold text-gray-900">New Outbound Delivery</h2>
                             <button
@@ -231,7 +231,7 @@ const Deliveries = () => {
                                     value={formData.customer_name}
                                     onChange={(e) => setFormData({ ...formData, customer_name: e.target.value })}
                                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                                    placeholder="e.g., Acme Corp"
+                                    placeholder="e.g., Reliance Retail"
                                 />
                             </div>
 
@@ -272,8 +272,8 @@ const Deliveries = () => {
                                     value={formData.quantity}
                                     onChange={(e) => handleQuantityChange(e.target.value)}
                                     className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 ${quantityError
-                                            ? 'border-red-500 focus:ring-red-500'
-                                            : 'border-gray-300 focus:ring-orange-500'
+                                        ? 'border-red-500 focus:ring-red-500'
+                                        : 'border-gray-300 focus:ring-orange-500'
                                         }`}
                                     placeholder="Enter quantity"
                                     disabled={!selectedProduct}
