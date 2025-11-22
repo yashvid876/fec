@@ -55,3 +55,7 @@ The frontend will typically start at `http://localhost:5173` (check the terminal
 ## Accessing the Application
 
 Once both servers are running, open your browser and go to the frontend URL (e.g., `http://localhost:5173`). It will communicate with the backend API.
+
+## Demo Video
+
+[Watch the Demo Video](https://drive.google.com/drive/folders/1JpmGJaXmUkoiIl2tel4p6nZEAWIQ_GUt?usp=sharing)
