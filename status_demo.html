@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>StockMaster Status Demo</title>
+    <style>
+        body { font-family: Arial; padding: 40px; background: linear-gradient(135deg, #1e3c72, #2a5298, #7e22ce); color: white; }
+        .demo-section { margin: 30px 0; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px; }
+        h1 { text-align: center; }
+        .status { padding: 15px 30px; margin: 10px 0; border-radius: 10px; font-size: 20px; font-weight: bold; }
+        .green { background: linear-gradient(135deg, #0cebeb, #20e3b2); }
+        .yellow { background: linear-gradient(135deg, #ffeaa7, #fdcb6e); color: #2a3555; }
+        .red { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .explanation { margin-top: 10px; font-size: 14px; opacity: 0.9; }
+    </style>
+</head>
+<body>
+    <h1>?? StockMaster AI - Updated Status Logic</h1>
+    
+    <div class="demo-section">
+        <h2>? Status Color Thresholds (Updated)</h2>
+        <div class="status green">
+            ?? GREEN: Stock < 300 units
+            <div class="explanation">?? Low/Empty inventory - Needs restocking soon</div>
+        </div>
+        
+        <div class="status yellow">
+            ?? YELLOW: Stock 300-600 units
+            <div class="explanation">?? Moderate inventory - Optimal range</div>
+        </div>
+        
+        <div class="status red">
+            ?? RED: Stock > 600 units
+            <div class="explanation">?? High/Full inventory - Risk of overstocking</div>
+        </div>
+    </div>
+    
+    <div class="demo-section">
+        <h2>?? Test Scenarios</h2>
+        <p><strong>Scenario 1:</strong> Traffic = 2.0 (Low) ? Predicts 100-400 units ? GREEN/YELLOW</p>
+        <p><strong>Scenario 2:</strong> Traffic = 5.5 (Medium) ? Predicts 300-600 units ? YELLOW</p>
+        <p><strong>Scenario 3:</strong> Traffic = 9.0 (High) ? Predicts 500-800 units ? YELLOW/RED</p>
+    </div>
+    
+    <div class="demo-section">
+        <h2>?? Try It!</h2>
+        <p>1. Open <a href="index.html" style="color: #20e3b2;">index.html</a> in your browser</p>
+        <p>2. Adjust the traffic slider to different values</p>
+        <p>3. Click "Run AI Prediction" to see different statuses</p>
+        <p>4. Watch the map marker, KPI cards, and alert banner update!</p>
+    </div>
+</body>
+</html>

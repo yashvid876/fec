@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StockMaster AI - Inventory Demand Prediction</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <div class="logo">
+                    <div class="logo-icon">📦</div>
+                    <h1>StockMaster AI</h1>
+                    <p class="subtitle">Intelligent Inventory Management</p>
+                </div>
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="warehouse-select">
+                            <span class="label-icon">🏭</span>
+                            Select Warehouse
+                        </label>
+                        <select id="warehouse-select" class="input-select">
+                            <option value="WH-MUM">Mumbai</option>
+                            <option value="WH-DEL">Delhi</option>
+                            <option value="WH-BLR">Bangalore</option>
+                            <option value="WH-PUN">Pune</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="product-select">
+                            <span class="label-icon">📊</span>
+                            Select Product
+                        </label>
+                        <select id="product-select" class="input-select">
+                            <option value="PROD-001">Steel</option>
+                            <option value="PROD-002">Cement</option>
+                            <option value="PROD-003">Pipes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="traffic-slider">
+                            <span class="label-icon">🚦</span>
+                            Live Traffic Congestion
+                        </label>
+                        <div class="slider-container">
+                            <input type="range" id="traffic-slider" class="slider" min="0" max="10" value="5" step="0.5">
+                            <div class="slider-value">
+                                <span id="traffic-value">5.0</span>
+                                <span class="unit">/10</span>
+                            </div>
+                        </div>
+                        <div class="slider-labels">
+                            <span>Low</span>
+                            <span>High</span>
+                        </div>
+                    </div>
+                    
+                    <button id="predict-btn" class="predict-btn">
+                        <span class="btn-icon">🤖</span>
+                        Run AI Prediction
+                    </button>
+                </div>
+                
+                <div class="sidebar-footer">
+                    <div class="status-indicator">
+                        <span class="pulse"></span>
+                        <span>API Connected</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Alert Banner -->
+            <div id="alert-banner" class="alert-banner hidden">
+                <span class="alert-icon">⚠️</span>
+                <span id="alert-text">Analyzing data...</span>
+            </div>
+            
+            <!-- KPI Cards -->
+            <div class="kpi-section">
+                <div class="kpi-card">
+                    <div class="kpi-icon">📦</div>
+                    <div class="kpi-content">
+                        <h3 class="kpi-label">Current Stock</h3>
+                        <p class="kpi-value" id="current-stock">--</p>
+                        <span class="kpi-unit">units</span>
+                    </div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">🎯</div>
+                    <div class="kpi-content">
+                        <h3 class="kpi-label">Predicted Demand</h3>
+                        <p class="kpi-value" id="predicted-demand">--</p>
+                        <span class="kpi-unit">units</span>
+                    </div>
+                </div>
+                
+                <div class="kpi-card">
+                    <div class="kpi-icon">📊</div>
+                    <div class="kpi-content">
+                        <h3 class="kpi-label">Status</h3>
+                        <p class="kpi-value status-badge" id="status-badge">Awaiting</p>
+                        <span class="kpi-unit">prediction</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map Section -->
+            <div class="map-section">
+                <div class="section-header">
+                    <h2>📍 Warehouse Location & Status</h2>
+                    <p class="section-subtitle">Real-time inventory monitoring across India</p>
+                </div>
+                <div id="map" class="map-container"></div>
+            </div>
+            
+            <!-- Chart Section -->
+            <div class="chart-section">
+                <div class="section-header">
+                    <h2>📈 7-Day Demand Forecast</h2>
+                    <p class="section-subtitle">AI-powered predictive analytics</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="demand-chart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <!-- Frontend ML Model -->
+    <script src="frontend_ml_model.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
